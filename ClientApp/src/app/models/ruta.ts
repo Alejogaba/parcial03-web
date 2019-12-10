@@ -1,5 +1,5 @@
-export class Areolinea {
-    id:number;
+export class Ruta {
+    id_ruta:number;
     origen:string;
     destino:string;
     valor:number;

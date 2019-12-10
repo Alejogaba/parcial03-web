@@ -16,6 +16,11 @@ import { ModalEjemploComponent } from './modals/modal-ejemplo/modal-ejemplo.comp
 import { AlertModalComponent } from './modals/alert-modal/alert-modal.component';
 import { AlertaModalComponent } from './modals/alerta-modal/alerta-modal.component';
 import { MiAlertaModalComponent } from './@base/modals/mi-alerta-modal/mi-alerta-modal.component';
+import { RutaAddComponent } from './ruta-add/ruta-add.component';
+import { TiqueteAddComponent } from './tiquete-add/tiquete-add.component';
+import { ToastrService, ToastrModule } from 'ngx-toastr';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+
 
 
 @NgModule({
@@ -29,17 +34,22 @@ import { MiAlertaModalComponent } from './@base/modals/mi-alerta-modal/mi-alerta
     FiltroEjemploPipe,
     ModalEjemploComponent,
     AlertModalComponent,
-    MiAlertaModalComponent
+    MiAlertaModalComponent,
+    RutaAddComponent,
+    TiqueteAddComponent
   ],
   
   imports: [
+    ToastrModule.forRoot(),
     NgbModule,
+    BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
+    BrowserAnimationsModule,
     ReactiveFormsModule,
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
     HttpClientModule,
     FormsModule,
     RouterModule.forRoot([
-      { path: '', component: EjemploComponent, pathMatch: 'full' },
+      { path: '', component: RutaAddComponent, pathMatch: 'full' },
       { path: 'counter', component: CounterComponent },
       { path: 'fetch-data', component: FetchDataComponent },
     ]),

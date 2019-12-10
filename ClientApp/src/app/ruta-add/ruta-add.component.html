@@ -1,0 +1,39 @@
+<div class="">
+    <div class="container">
+        <div class="row">
+          <div class="col-md-6 offset-md-3">
+            <h2>Registro de Créditos</h2>
+            <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+    
+            
+    
+              <div class="form-group">
+                <label>Origen</label>
+                <input type="text" formControlName="origen" [(ngModel)]="ruta.origen" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.origen.errors }" />
+                <div *ngIf="submitted && f.origen.errors" class="invalid-feedback">
+                  <div *ngIf="f.origen.errors.required">Debe escribir el origen</div>
+                </div>
+              </div>
+              <div class="form-group">
+                <label>Destino</label>
+                <input type="text" formControlName="destino" [(ngModel)]="ruta.destino" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.destino.errors }" />
+                <div *ngIf="submitted && f.destino.errors" class="invalid-feedback">
+                  <div *ngIf="f.destino.errors.required">Debe escribir el destino</div>
+                </div>
+              </div>
+              <div class="form-group">
+                <label>Valor</label>
+                <input type="number" formControlName="valor"  [(ngModel)]="ruta.valor" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.valor.errors }" />
+                <div *ngIf="submitted && f.valor.errors" class="invalid-feedback">
+                  <div *ngIf="f.valor.errors.required">Debe escribir el valor del viaje</div>
+                  <div *ngIf="f.valor.errors.min">No deje el valor en 0</div>
+                </div>
+              </div>
+              <div class="text-center">
+                <button class="btn btn-primary mr-1" >Registrar</button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+</div>

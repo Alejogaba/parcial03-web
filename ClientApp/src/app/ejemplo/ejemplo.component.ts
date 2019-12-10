@@ -20,13 +20,13 @@ submitted = false;
     this.miejemplo= new ObjectEjemplo;
     this.miareolinea=new Areolinea;
     this.miareolinea.id=2;
-    this.miareolinea.ruta='';
+    this.miareolinea.origen='';
     this.registerForm = this.formBuilder.group({
-      ruta:[this.miareolinea.ruta, Validators.required]
+      ruta:[this.miareolinea.origen, Validators.required]
   });
   }
   comprobar(){
-    this.areolineaservice.buscar(this.miareolinea.ruta).subscribe( t => this.miareolinea = t);
+    this.areolineaservice.buscar(this.miareolinea.origen).subscribe( t => this.miareolinea = t);
   }
 
   get f() { return this.registerForm.controls; }
