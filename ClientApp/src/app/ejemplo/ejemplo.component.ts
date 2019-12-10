@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import {ObjectEjemplo} from '../models/object-ejemplo';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import {MiAlertaModalComponent} from '../@base/modals/mi-alerta-modal/mi-alerta-modal.component';
 import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
+import {Areolinea} from '../models/areolinea';
+import {ServiceareolineaService} from '../services/serviceareolinea.service'
 
 @Component({
   selector: 'app-ejemplo',
@@ -11,15 +12,21 @@ import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
 })
 export class EjemploComponent implements OnInit {
 miejemplo:ObjectEjemplo;
+miareolinea:Areolinea;
 registerForm: FormGroup;
 submitted = false;
-  constructor( private formBuilder: FormBuilder ) { }
+  constructor( private formBuilder: FormBuilder, private areolineaservice:ServiceareolineaService ) { }
   ngOnInit() {
     this.miejemplo= new ObjectEjemplo;
+    this.miareolinea=new Areolinea;
+    this.miareolinea.id=2;
+    this.miareolinea.ruta='';
     this.registerForm = this.formBuilder.group({
-      id: [this.miejemplo.id, Validators.required],
-      nombre:[this.miejemplo.nombre, Validators.required]
+      ruta:[this.miareolinea.ruta, Validators.required]
   });
+  }
+  comprobar(){
+    this.areolineaservice.buscar(this.miareolinea.ruta).subscribe( t => this.miareolinea = t);
   }
 
   get f() { return this.registerForm.controls; }
@@ -29,7 +36,7 @@ submitted = false;
   
         return;
     }
-   
+   this.comprobar();
 }
 
 

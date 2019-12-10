@@ -5,20 +5,13 @@
             <h2>Registro de Créditos</h2>
             <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
     
-              
-              <div class="form-group">
-                <label>Identificacion</label>
-                <input type="number" formControlName="id" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.id.errors }" />
-                <div *ngIf="submitted && f.id.errors" class="invalid-feedback">
-                  <div *ngIf="f.id.errors.required">Identificacion es requerida</div>
-                </div>
-              </div>
+            
     
               <div class="form-group">
-                <label>Nombre</label>
-                <input type="text" formControlName="nombre" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.nombre.errors }" />
-                <div *ngIf="submitted && f.nombre.errors" class="invalid-feedback">
-                  <div *ngIf="f.nombre.errors.required">Nombre es requerido</div>
+                <label>Nombre {{miareolinea.ruta}}</label>
+                <input type="text" formControlName="ruta" [(ngModel)]="miareolinea.ruta" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.ruta.errors }" />
+                <div *ngIf="submitted && f.ruta.errors" class="invalid-feedback">
+                  <div *ngIf="f.ruta.errors.required">Nombre es requerido</div>
                 </div>
               </div>
               <div class="text-center">
