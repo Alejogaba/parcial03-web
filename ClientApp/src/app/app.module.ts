@@ -1,5 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import { NgModule, ErrorHandler } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { RouterModule } from '@angular/router';
@@ -20,6 +20,8 @@ import { RutaAddComponent } from './ruta-add/ruta-add.component';
 import { TiqueteAddComponent } from './tiquete-add/tiquete-add.component';
 import { ToastrService, ToastrModule } from 'ngx-toastr';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { FiltroRutasPipe } from './pipes/filtro-rutas.pipe';
+import { CustomErrorHandlerService } from './@base/services/custom-error-handler.service';
 
 
 
@@ -36,7 +38,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     AlertModalComponent,
     MiAlertaModalComponent,
     RutaAddComponent,
-    TiqueteAddComponent
+    TiqueteAddComponent,
+    FiltroRutasPipe
   ],
   
   imports: [
@@ -51,6 +54,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     RouterModule.forRoot([
       { path: '', component: RutaAddComponent, pathMatch: 'full' },
       { path: 'counter', component: CounterComponent },
+      { path: 'tiquete', component: TiqueteAddComponent },
       { path: 'fetch-data', component: FetchDataComponent },
     ]),
    
@@ -58,7 +62,10 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
   exports: [
     MiAlertaModalComponent
  ],
-  providers: [],
+  providers: [{
+    provide: ErrorHandler,
+    useClass: CustomErrorHandlerService,
+  },],
   bootstrap: [AppComponent],
   entryComponents: [
     MiAlertaModalComponent

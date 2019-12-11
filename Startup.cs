@@ -23,7 +23,10 @@ namespace PrParcial
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-           
+            var oraConn = "User Id=abache;Password=abache;Data Source=(DESCRIPTION = (ADDRESS_LIST =(ADDRESS =(PROTOCOL = TCP)(HOST = localhost)(PORT = 1521)))(CONNECT_DATA =(SERVICE_NAME = xepdb1)))";
+    
+           services.AddDbContext<MyContext>(opt =>
+            opt.UseOracle(oraConn));
 
             services.AddSwaggerDocument();
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);

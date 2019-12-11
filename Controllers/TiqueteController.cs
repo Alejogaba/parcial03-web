@@ -30,13 +30,65 @@ namespace TaskSharpHTTP.Controllers
         
         
         [HttpPost]
-        public async Task<ActionResult<TiqueteItem>> PostPersona(TiqueteItem tiqueteitem)
+        public async Task<ActionResult<TiqueteItem>> Post(TiqueteItem request)
         {
-            _context.TiqueteItems.Add(tiqueteitem);
-            await _context.SaveChangesAsync();
-            return CreatedAtAction(nameof(GetPersona), new { id = tiqueteitem.Id }, tiqueteitem);
+
+          var tiquete = new TiqueteItem()
+            {
+                Id=request.Id,
+                Id_cliente = request.Id_cliente,
+                id_ruta=request.id_ruta,
+                Cantidad=request.Cantidad,
+                Total=request.Total
+            };
+          tiquete.Total=tiquete.Cantidad*Getrutavalor(tiquete.id_ruta);
+            _context.TiqueteItems.Add(tiquete);
+            try
+            {
+    await _context.SaveChangesAsync(); 
+            }
+            catch (DbUpdateException)
+        {
+            if (!(ClienteExists(tiquete.Id_cliente)))
+                {
+                    ModelState.AddModelError("Cliente", "El cliente no existe");
+                    var problemDetails = new ValidationProblemDetails(ModelState)
+                    {
+                        Status = StatusCodes.Status400BadRequest,
+                    };
+                    return BadRequest(problemDetails);
+                }else{
+                     if (!(RutaExists(tiquete.id_ruta)))
+                {
+                    ModelState.AddModelError("Ruta", "La ruta no existe");
+                    var problemDetails = new ValidationProblemDetails(ModelState)
+                    {
+                        Status = StatusCodes.Status400BadRequest,
+                    };
+                    return BadRequest(problemDetails);
+                }
+                }
+        }
+            return CreatedAtAction("GetPersona", new { id = tiquete.Id },tiquete);
         }
 
+        private bool ClienteExists(int id)
+        {
+            return _context.ClienteItems.Any(e => e.Id_cliente == id);
+        }
+  private bool RutaExists(int id)
+        {
+            return _context.RutaItems.Any(e => e.Id_ruta== id);
+        }
+        private int Getrutavalor(int id)
+        {
+            var areolineaitem =  _context.RutaItems.Find(id);
+            if (areolineaitem==null)
+            {
+                return 0;
+            }
+            return areolineaitem.Valor;
+        }
      
         }
    
